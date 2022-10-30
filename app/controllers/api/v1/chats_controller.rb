@@ -24,14 +24,6 @@ class Api::V1::ChatsController < Api::ApiController
 
   private
 
-  def chat_params
-      params.permit(:application_token)
-  end
-
-  def set_application
-    @application = Application.find_by(chat_params)
-  end
-
   def set_new_chat
     set_chat
     @chat = Chat.new(application_id: @application.id) if @chat.nil?
