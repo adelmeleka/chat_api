@@ -42,7 +42,6 @@ class Api::V1::ApplicationsController < Api::ApiController
   end
 
   def set_application
-    byebug
     @application = params[:application_token].present? ? 
       Application.find_by(application_token: params[:application_token]) :
       Application.new(application_params)
