@@ -6,4 +6,8 @@ class Chat < ApplicationRecord
   # VALIDATIONS #
   validates_presence_of :chat_number
   validates_uniqueness_of :chat_number, scope: :application
+
+  def as_json(options = {}) 
+    super(except: %i[id application_id]) 
+  end
 end
