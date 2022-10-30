@@ -13,4 +13,12 @@ class Api::ApiController < ActionController::API
     return  json_response({}, :not_found) if record.nil?
   end
 
+  def set_application
+    @application = Application.find_by(application_token: params[:application_token]) if params[:application_token].present?
+  end
+
+  def set_chat
+    @chat = @application.chats.find_by(chat_number: params[:chat_number].to_i) if params[:chat_number].present?
+  end
+
 end

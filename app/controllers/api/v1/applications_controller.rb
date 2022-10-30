@@ -1,11 +1,11 @@
 class Api::V1::ApplicationsController < Api::ApiController
-  before_action :set_application, except: %i[index]
+  before_action :set_new_application, except: %i[index]
   before_action only: %i[show update] do
     validate_record_presence(@application)
   end
 
   def create
-    @application.application_token = Base64.encode64("app-#{@application.name}").strip
+    @application.application_token = Base64.encode64("app-#{@application.name}-#{Application.all.length+1}").strip
     if @application.save
       # brodcasting in channel
       json_response({data: @application.as_json}, :ok)
@@ -38,13 +38,12 @@ class Api::V1::ApplicationsController < Api::ApiController
   private
 
   def application_params
-    params.require(:application).permit(:name)
+    params.permit(:name)
   end
 
-  def set_application
-    @application = params[:application_token].present? ? 
-      Application.find_by(application_token: params[:application_token]) :
-      Application.new(application_params)
+  def set_new_application
+    set_application
+    @application = Application.new(application_params) if @application.nil?
   end
 
 end
