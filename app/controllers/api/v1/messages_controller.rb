@@ -9,14 +9,16 @@ class Api::V1::MessagesController < Api::ApiController
   before_action only: %i[show] do validate_record_presence(@message) end
   
   def create
-    @message.chat = @chat
-    @message.message_number = @chat.messages.length+1
-    if @message.save
-      @chat.update(messages_count: @chat.messages_count+1)
-      json_response({data: @message.as_json}, :ok)
-    else
-      json_response(ErrorsSerializer.new(@message).serialize, :unprocessable_entity)
-    end
+    # broadcast the new message to its appropriate channel
+    data = {}
+    data["chat_id"] = @chat.id
+    data["message_content"] = @message.message_content
+    ActionCable.server.broadcast "chats_#{@message.chat_id}", data.as_json
+    # if 
+    #   json_response({data: @message.as_json}, :ok)
+    # else
+    #   json_response(ErrorsSerializer.new(@message).serialize, :unprocessable_entity)
+    # end
   end
 
   def index
@@ -29,8 +31,6 @@ class Api::V1::MessagesController < Api::ApiController
 
   def search
     if params[:search_content].present? && @chat 
-      # a.index{|s| s =~ /We have/}
-      # a.index{|s| s.include?("We have")}
       json_response({data:@chat.messages.where("message_content like ?", "%#{params[:search_content]}%").as_json}, :ok)
     else
       json_response(ErrorsSerializer.new(@chat).serialize, :unprocessable_entity)
