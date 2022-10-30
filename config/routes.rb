@@ -13,5 +13,5 @@ Rails.application.routes.draw do
       end
     end
   end 
-  
+  match '/api/v1/applications/:application_token/chats/:chat_number/search/:search_content' , :to => 'api/v1/messages#search' , :via => [:get]
 end

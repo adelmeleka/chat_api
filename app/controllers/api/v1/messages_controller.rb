@@ -27,6 +27,16 @@ class Api::V1::MessagesController < Api::ApiController
     json_response({data: @message.as_json}, :ok)
   end
 
+  def search
+    if params[:search_content].present? && @chat 
+      # a.index{|s| s =~ /We have/}
+      # a.index{|s| s.include?("We have")}
+      json_response({data:@chat.messages.where("message_content like ?", "%#{params[:search_content]}%").as_json}, :ok)
+    else
+      json_response(ErrorsSerializer.new(@chat).serialize, :unprocessable_entity)
+    end 
+  end
+
   private
 
   def message_params
