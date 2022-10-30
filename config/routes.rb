@@ -6,12 +6,15 @@ Rails.application.routes.draw do
         member do
           resources :chats, only: %i[create index show], param: :chat_number do
             member do 
-              resources :messages, only: %i[create index show], param: :message_number
+              resources :messages, only: %i[create index show], param: :message_number do 
+                collection do
+                  get '/search', to: 'messages#search'
+                end
+              end
             end
           end
         end 
       end
     end
   end 
-  match '/api/v1/applications/:application_token/chats/:chat_number/search/:search_content' , :to => 'api/v1/messages#search' , :via => [:get]
 end
