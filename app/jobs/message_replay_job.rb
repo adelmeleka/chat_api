@@ -2,6 +2,7 @@ class MessageRelayJob < ApplicationJob
     queue_as :default
   
     def perform(data)
+        byebug  
         p 'in perform'
         chat = Chat.find(data['chat_id'])
         message = Message.new(message_params)
