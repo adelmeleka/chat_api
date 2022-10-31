@@ -16,8 +16,6 @@ class ChatChannel < ApplicationCable::Channel
   # Called when cable receives a brodcasted message. 
   # Take this message & save it to database
   # def receive(data)
-  #   byebug
-  #   p 'in recieve'
   #   MessageRelayJob.perform_later(data)
   # end
 
