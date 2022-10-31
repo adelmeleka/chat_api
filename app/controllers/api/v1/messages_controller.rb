@@ -14,7 +14,7 @@ class Api::V1::MessagesController < Api::ApiController
     data["chat_id"] = @chat.id
     data["message_content"] = @message.message_content
     ActionCable.server.broadcast "chats_#{@chat.id}", data.as_json
-    MessageRelayJob.perform_later(data)
+    MessageReplayJob.perform_later(data)
     # if ActionCable.server.broadcast "chats_#{@chat.id}", data.as_json
     #   json_response({data: @message.as_json}, :ok)
     # else
