@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
@@ -17,5 +18,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  mount ActionCable.server => "/cable" 
+  mount ActionCable.server => "/cable"
+  Sidekiq::Web.use(Rack::Auth::Basic) { |user, password| [user, password] == %w[admin admin] }
+  mount Sidekiq::Web => '/sidekiq'
 end

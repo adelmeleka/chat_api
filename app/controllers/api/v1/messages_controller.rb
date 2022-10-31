@@ -15,11 +15,7 @@ class Api::V1::MessagesController < Api::ApiController
     data["message_content"] = @message.message_content
     ActionCable.server.broadcast "chats_#{@chat.id}", data.as_json
     MessageReplayJob.perform_later(data)
-    # if ActionCable.server.broadcast "chats_#{@chat.id}", data.as_json
-    #   json_response({data: @message.as_json}, :ok)
-    # else
-    #   json_response(ErrorsSerializer.new(@message).serialize, :unprocessable_entity)
-    # end
+    json_response({data: @message.as_json}, :ok)
   end
 
   def index
