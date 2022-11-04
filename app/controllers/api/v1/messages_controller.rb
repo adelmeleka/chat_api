@@ -10,11 +10,15 @@ class Api::V1::MessagesController < Api::ApiController
   
   def create
     # broadcast the new message to its appropriate channel
+    # TODO: return messge number from redis 
     data = {}
     data["chat_id"] = @chat.id
     data["message_content"] = @message.message_content
-    ActionCable.server.broadcast "chats_#{@chat.id}", data.as_json
+    # ActionCable.server.broadcast "chats_#{@chat.id}", data.as_json
+    # Save data to db using an active job
     MessageReplayJob.perform_later(data)
+    # TODO: return messge number from redis 
+    # get & increment value from redis
     json_response({data: @message.as_json}, :ok)
   end
 
