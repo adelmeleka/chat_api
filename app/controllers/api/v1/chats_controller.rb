@@ -5,13 +5,22 @@ class Api::V1::ChatsController < Api::ApiController
   before_action only: %i[show] do validate_record_presence(@chat) end
   
   def create
-    # broadcast the new message to its appropriate channel
+    # Return chat number from redis 
+    if $redis.get("#{@application.application_token}_count").to_i >= 1
+      chat_number = $redis.incr("#{@application.application_token}_count")
+    else
+      $redis.set("#{@application.application_token}_count", @application.chats_count+1)
+      chat_number = @application.chats_count+1
+    end
+    @chat.chat_number = chat_number
+    # broadcast the new chat to its appropriate channel
     data = {}
     data["app_id"] = @application.id
+    data["chat_no"] = chat_number
     ActionCable.server.broadcast "application_#{@application.id}", data.as_json
     # Save data to db using an active job
     ChatReplayJob.perform_later(data)
-    # TODO: return messge number from redis 
+    #return response
     json_response({data: @chat.as_json}, :ok)
   end
 
