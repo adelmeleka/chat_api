@@ -14,5 +14,6 @@ module FirstApp
     config.active_job.queue_adapter = :sidekiq
     config.action_cable.disable_request_forgery_protection = true
     config.action_cable.url = "/cable"
+    config.cache_store = :redis_cache_store, { url: "#{ENV['REDIS_URL']}/#{ENV.fetch('REDIS_DB')}" }
   end
 end
