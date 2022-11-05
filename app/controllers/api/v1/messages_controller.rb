@@ -9,19 +9,10 @@ class Api::V1::MessagesController < Api::ApiController
   before_action only: %i[show] do validate_record_presence(@message) end
   
   def create
-    # Return message number from redis 
-    if $redis.get("#{@application.application_token}_#{@chat.chat_number}_count").to_i >= 1
-      message_number = $redis.incr("#{@application.application_token}_#{@chat.chat_number}_count")
-    else
-      $redis.set("#{@application.application_token}_#{@chat.chat_number}_count", @chat.messages_count+1)
-      message_number =  @chat.messages_count+1
-    end
-    byebug
-    @message.message_number = message_number
-    # broadcast the new message to its appropriate channel
+    # Broadcast the new message to its appropriate channel
     data = {}
     data["chat_id"] = @chat.id
-    data["message_no"] = message_number
+    data["message_no"] = @message.message_number
     data["message_content"] = @message.message_content
     ActionCable.server.broadcast "chats_#{@chat.id}", data.as_json
     # Save data to db using an active job
@@ -53,8 +44,22 @@ class Api::V1::MessagesController < Api::ApiController
   end
 
   def set_message
-    @message = params[:message_number].present? ?
-      @chat.messages.find_by(message_number: params[:message_number]):
-      Message.new(message_params)
+    byebug
+    if params[:message_number].present? 
+      @message = @chat.messages.find_by(message_number: params[:message_number])
+    else
+      @message = Message.new(message_params)
+      @message.message_number = get_new_message_number
+    end
+  end
+  
+  def get_new_message_number
+    if $redis.get("#{@application.application_token}_#{@chat.chat_number}_count").to_i >= 1
+      message_number = $redis.incr("#{@application.application_token}_#{@chat.chat_number}_count")
+    else
+      $redis.set("#{@application.application_token}_#{@chat.chat_number}_count", @chat.messages_count+1)
+      message_number =  @chat.messages_count+1
+    end
+    return message_number
   end
 end
