@@ -10,35 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221028192055) do
+ActiveRecord::Schema.define(version: 2022_10_28_192055) do
 
-  create_table "applications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3" do |t|
-    t.string   "application_token",             null: false
-    t.string   "name"
-    t.integer  "chats_count",       default: 0
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.index ["application_token"], name: "index_applications_on_application_token", using: :btree
+  create_table "applications", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "application_token", null: false
+    t.string "name"
+    t.integer "chats_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_token"], name: "index_applications_on_application_token"
   end
 
-  create_table "chats", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3" do |t|
-    t.integer  "application_id"
-    t.integer  "chat_number",                null: false
-    t.integer  "messages_count", default: 0
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.index ["application_id"], name: "index_chats_on_application_id", using: :btree
-    t.index ["chat_number"], name: "index_chats_on_chat_number", using: :btree
+  create_table "chats", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "application_id"
+    t.integer "chat_number", null: false
+    t.integer "messages_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_chats_on_application_id"
+    t.index ["chat_number"], name: "index_chats_on_chat_number"
   end
 
-  create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3" do |t|
-    t.integer  "chat_id"
-    t.integer  "message_number",                null: false
-    t.text     "message_content", limit: 65535
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.index ["chat_id"], name: "index_messages_on_chat_id", using: :btree
-    t.index ["message_number"], name: "index_messages_on_message_number", using: :btree
+  create_table "messages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "chat_id"
+    t.integer "message_number", null: false
+    t.text "message_content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
+    t.index ["message_number"], name: "index_messages_on_message_number"
   end
 
   add_foreign_key "chats", "applications"
