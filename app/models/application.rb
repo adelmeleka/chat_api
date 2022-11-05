@@ -7,7 +7,7 @@ class Application < ApplicationRecord
   validates :name, uniqueness:true, presence: true, allow_blank: false
 
   def as_json(options = {}) 
-    super(except: :id) 
+    super(except: %i[id created_at updated_at]) 
   end
 
 end

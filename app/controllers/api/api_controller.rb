@@ -18,7 +18,18 @@ class Api::ApiController < ActionController::API
   end
 
   def set_chat
-    @chat = @application.chats.find_by(chat_number: params[:chat_number].to_i) if params[:chat_number].present?
+    if params[:chat_number].present? 
+      # Get cached copy from redis (deserialized) with an updated messages_count
+      @chat = $redis.get("#{@application.application_token}_#{params[:chat_number]}") 
+      if @chat.present?
+        @chat = Marshal.load(@chat)
+        @chat.messages_count = $redis.get("#{@application.application_token}_#{@chat.chat_number}_count").to_i
+      else
+        #If not found, get it from db & save it in cache
+        @chat = @application.chats.find_by(chat_number: params[:chat_number].to_i) 
+        $redis.set("#{@application.application_token}_#{@chat.chat_number.to_s}", Marshal.dump(@chat), ex: 3600)
+      end
+    end
   end
 
 end

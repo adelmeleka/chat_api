@@ -8,6 +8,6 @@ class Chat < ApplicationRecord
   validates_uniqueness_of :chat_number, scope: :application
 
   def as_json(options = {}) 
-    super(except: %i[id application_id]) 
+    super(except: %i[id application_id created_at updated_at]) 
   end
 end
