@@ -1,6 +1,6 @@
 FactoryBot.define do
     factory :application do
-      title { Faker::Lorem.word }
-      created_by { Faker::Number.number(10) }
+      name { Faker::Lorem.word }
+      application_token { Faker::Lorem.word }
     end
 end

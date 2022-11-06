@@ -1,12 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe Application, type: :model do
-    pending "add some examples to (or delete) #{__FILE__}"
-    # Association test
-  # ensure Todo model has a 1:m relationship with the Item model
-  it { should have_many(:items).dependent(:destroy) }
-  # Validation tests
-  # ensure columns title and created_by are present before saving
-  it { should validate_presence_of(:title) }
-  it { should validate_presence_of(:created_by) }
+    ### Association tests ###
+    #  Ensure Application model has a 1:m relationship with the chat model
+    it { is_expected.to have_many(:chats).dependent(:destroy) }
+    
+    ### Validation tests ###
+    # Ensure presence of some cols before saving
+    it { is_expected.to validate_presence_of(:application_token) }
+    it { is_expected.to validate_presence_of(:name) }
+
+    # Ensure uniquness of some fields
+    # do for: application_toke name
+
+    # Ensure :name cannot be blank
 end
