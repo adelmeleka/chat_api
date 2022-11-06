@@ -17,4 +17,7 @@ RUN gem update --system && \
 
 COPY . /app
 
-CMD ["rails", "server"]
+# Add a script to be executed every time the container starts
+COPY docker-entrypoint.sh /
+RUN chmod +x docker-entrypoint.sh
+CMD sh docker-entrypoint.sh

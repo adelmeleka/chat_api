@@ -20,8 +20,9 @@ class Api::ApiController < ActionController::API
   def set_chat
     if params[:chat_number].present? 
       # Get cached copy from redis (deserialized) with an updated messages_count
-      @chat = Marshal.load($redis.get("#{@application.application_token}_#{params[:chat_number]}"))
+      @chat = $redis.get("#{@application.application_token}_#{params[:chat_number]}")
       if @chat.present?
+        @chat = Marshal.load(@chat)
         @chat.messages_count = $redis.get("#{@application.application_token}_#{@chat.chat_number}_count").to_i
       else
         #If not found, get it from db & save it in cache
