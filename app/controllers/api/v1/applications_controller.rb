@@ -8,7 +8,7 @@ class Api::V1::ApplicationsController < Api::ApiController
     @application.application_token = Base64.encode64("app-#{@application.name}-#{Application.all.length+1}").strip
     if @application.save
       # brodcasting in channel
-      json_response({data: @application.as_json}, :ok)
+      json_response({data: @application.as_json}, :created)
     else
       json_response(ErrorsSerializer.new(@application).serialize, :unprocessable_entity)
     end

@@ -2,50 +2,49 @@ require 'rails_helper'
 
 RSpec.describe 'Applications API', type: :request do
   # Initialize test data with factory bot
-  let!(:applications) { create_list(:application, 10) }
-  let(:application_token) { applications.first.application_token }
-
+  let(:application4) { FactoryBot.create :application, name: 'app4', application_token: 'DFHGFJHGFH'}
+  
   # Test suite for GET /applications
   describe 'GET /applications' do
-    # make HTTP get request before each example
-    # before { get '/api/v1/applications' , headers: {'API-key': "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQ2hhdFN5c3RlbSIsImV4cCI6MTY5ODYxMDg4Mn0.Lv17tkZZYSZyCEkYRsNkJEgwnuj-GDhOyTE2Is_Uhi4"}}
-    before { get '/api/v1/applications' }
-    
     it 'returns applications' do
       # Note `json` is a custom helper to parse JSON responses
+      application1 = FactoryBot.create :application, name: 'app1', application_token: 'ABCDV'
+      application2 = FactoryBot.create :application, name: 'app2', application_token: 'XYZSA'
+      application3 = FactoryBot.create :application, name: 'app3', application_token: 'DFZAD'
+      get '/api/v1/applications' 
       expect(json['data']).not_to be_empty
-      expect(json['data'].size).to eq(10)
+      expect(json['data'].size).to eq(3)
     end
 
     it 'returns status code 200' do
+      get '/api/v1/applications' 
       expect(response).to have_http_status(200)
     end
   end
 
   # Test suite for GET /applications/:application_token
   describe 'GET /applications/:application_token' do
-    before { get "/api/v1/applications/#{application_token}" }
+    # before { get "/api/v1/applications/#{application4.application_token}" }
+    
     context 'when the record exists' do
       it 'returns the application' do
-        byebug
+        get "/api/v1/applications/#{application4.application_token}"
         expect(json['data']).not_to be_empty
-        expect(json['data']['application_token']).to eq(application_token)
+        expect(json['data']['application_token']).to eq('DFHGFJHGFH')
       end
 
       it 'returns status code 200' do
+        get "/api/v1/applications/#{application4.application_token}"
         expect(response).to have_http_status(200)
       end
     end
 
     context 'when the record does not exist' do
-      let(:application_token) { "nil"}
-
+      # let(:application_token) { "nil"}
+      
       it 'returns status code 404' do
+        get "/api/v1/applications/wrong_value"
         expect(response).to have_http_status(404)
-      end
-
-      it 'returns a not found message' do
-        expect(response.body).to be_empty
       end
     end
   end
@@ -59,7 +58,7 @@ RSpec.describe 'Applications API', type: :request do
       before { post '/api/v1/applications', params: valid_attributes }
 
       it 'creates an application' do
-        expect(json[:data][:name]).to eq('app test')
+        expect(json['data']['name']).to eq('app test')
       end
 
       it 'returns status code 201' do
@@ -75,8 +74,8 @@ RSpec.describe 'Applications API', type: :request do
       end
 
       it 'returns a validation failure message' do
-        expect(json[1][:field]).to eq('name')
-        expect(json[1][:message]).to eq("can't be blank")
+        expect(json[0]['field']).to eq('name')
+        expect(json[0]['message']).to eq("can't be blank")
       end
     end
   end
@@ -86,14 +85,14 @@ RSpec.describe 'Applications API', type: :request do
     let(:valid_attributes) { { name: 'edited name' } }
 
     context 'when the record exists' do
-      before { put "/api/v1/applications/#{application_token}", params: valid_attributes }
+      before { put "/api/v1/applications/#{application4.application_token}", params: valid_attributes }
 
       it 'updates the record' do
-        expect(json[:data]['name']).to eq('edited name')
+        expect(json['data']['name']).to eq('edited name')
       end
 
-      it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
       end
     end
   end
