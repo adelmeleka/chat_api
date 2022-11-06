@@ -80,7 +80,7 @@ RSpec.describe 'Applications API', type: :request do
     end
   end
 
-  # Test suite for PUT /todos/:id
+  # Test suite for PUT /applications/:application_token
   describe 'PUT /applications/:application_token' do
     let(:valid_attributes) { { name: 'edited name' } }
 

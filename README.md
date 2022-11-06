@@ -200,6 +200,10 @@ To improve create/retrieve performance also, a caching mechanism is done on each
 
 Cached chats/messages in redis expires every hour to ensure not having stale data too much.
 
+### Running RSPEC files
+
+RSPEC files are available for the system. To run them, just uncomment `bundle exec rspec` command from `docker-entrypoint.sh` file.
+
 ## Contributor
 
 Adel Atef Meleka

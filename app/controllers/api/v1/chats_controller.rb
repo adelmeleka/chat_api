@@ -17,7 +17,7 @@ class Api::V1::ChatsController < Api::ApiController
     # cache created chat in redis (serialized)
     $redis.set("#{@application.application_token}_#{@chat.chat_number}", Marshal.dump(@chat), ex: 3600) 
     # return response
-    json_response({data: @chat.as_json}, :ok)
+    json_response({data: @chat.as_json}, :created)
   end
 
   def index
