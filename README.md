@@ -31,7 +31,7 @@ The chat system provides an additional websocket endpoint to be able catch the c
 
 ## API Endpoints
 
-To be able to use any endpoint provided by the system, you must include the follwing authorization token in any request header as follows
+To be able to use any endpoint provided by the system, you must include the following authorization token in any request header:
 
 `Header Key: API-Key`
 
