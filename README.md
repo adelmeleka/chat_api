@@ -24,7 +24,7 @@ The chat system provides an additional websocket endpoint to be able catch the c
 - Docker installed on your local machine
 - VS Code as recommended IDE for development
 
-## Instalation
+## Installation
 
 - Make copy `.env.sample` file & rename it to `.env`
 - Compose-up for `docker-compose.yml` file in project directory
