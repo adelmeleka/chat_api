@@ -8,6 +8,7 @@ RSpec.describe Message, type: :model do
     ### Validation tests ###
     # Ensure presence of some cols before saving
     it { is_expected.to validate_presence_of(:message_number) }
+    it { is_expected.to validate_presence_of(:message_content) }
 
     # Ensure uniquness of some fields
     # do for: message_number

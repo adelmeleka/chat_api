@@ -3,7 +3,7 @@ class Message < ApplicationRecord
   belongs_to :chat
 
   # VALIDATIONS #
-  validates_presence_of :message_number
+  validates_presence_of :message_number, :message_content
   validates_uniqueness_of :message_number, scope: :chat
 
   def as_json(options = {}) 
