@@ -32,11 +32,14 @@ The chat system provides an additional websocket endpoint to be able catch the c
 ## API Endpoints
 
 To be able to use any endpoint provided by the system, you must include the follwing authorization token in any request header as follows
-`Header Key: API-Key - Header Value: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQ2hhdFN5c3RlbSIsImV4cCI6MTY5ODYxMDg4Mn0.Lv17tkZZYSZyCEkYRsNkJEgwnuj-GDhOyTE2Is_Uhi4`
 
-Generated using `rails console` with command: `JsonWebToken.encode(user: 'ChatSystem')`
+`Header Key: API-Key`
 
-For now this is static key used for authorizing the access to endpoints, later it can be replaced by login/ authorization system which will generate the token itself.
+`Header Value: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQ2hhdFN5c3RlbSIsImV4cCI6MTY5ODYxMDg4Mn0.Lv17tkZZYSZyCEkYRsNkJEgwnuj-GDhOyTE2Is_Uhi4`
+
+This token is generated using `rails console` with command: `JsonWebToken.encode(user: 'ChatSystem')`
+
+For now, this static token is used for authorizing the access to endpoints, later it can be replaced by login/ authorization system which will generate the token itself to autorize users to access the endpoints.
 
 ### Applications
 
@@ -193,7 +196,9 @@ Creating new chats/messages endpoints doesn't hit the MySQL database directly in
 Instead, creation of a new chat/message if done in a background job using sidekiq.
 Handling the values `msgs_count` and `chats_count` for each application & chat are done by caching them in redis & using/updating them when needed.
 
-To improve retrieving performance also, a caching mechanism is done on each chat/message newly created/retrieved from database. So first we check in redis if we have the needed chat/message before hitting the database. And when we hit the database & get it, we save it in redis for possible later use. Cached chats/messages in redis expires every hour ot ensure not having stale data too much.
+To improve create/retrieve performance also, a caching mechanism is done on each chat/message newly created/retrieved from database. So first we check in redis if we have the needed chat/message before hitting the database. And when we hit the database & get it, we save it in redis for possible later use.
+
+Cached chats/messages in redis expires every hour to ensure not having stale data too much.
 
 ## Contributor
 
