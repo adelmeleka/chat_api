@@ -1,6 +1,6 @@
 class Api::ApiController < ActionController::API
   include Api::Response
-  before_action :authenticate_request
+  # before_action :authenticate_request
 
   private
 
@@ -10,7 +10,12 @@ class Api::ApiController < ActionController::API
   end
 
   def validate_record_presence(record)
-    return  json_response({}, :not_found) if record.nil?
+    if record.nil? ||
+      (record.is_a?(Application) && record.application_token.nil?) ||
+      (record.is_a?(Chat) && record.chat_number.nil?)||
+      (record.is_a?(Message) && record.message_number.nil?)
+      return  json_response({}, :not_found) 
+    end
   end
 
   def set_application

@@ -10,7 +10,4 @@ RSpec.describe Chat, type: :model do
     ### Validation tests ###
     # Ensure presence of some cols before saving
     it { is_expected.to validate_presence_of(:chat_number) }
-
-    # Ensure uniquness of some fields
-    # do for: chat_number (on application scope)
 end

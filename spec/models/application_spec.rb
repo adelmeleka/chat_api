@@ -9,9 +9,4 @@ RSpec.describe Application, type: :model do
     # Ensure presence of some cols before saving
     it { is_expected.to validate_presence_of(:application_token) }
     it { is_expected.to validate_presence_of(:name) }
-
-    # Ensure uniquness of some fields
-    # do for: application_toke name
-
-    # Ensure :name cannot be blank
 end
