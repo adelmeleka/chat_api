@@ -1,0 +1,381 @@
+{
+	"info": {
+		"_postman_id": "ef9ed724-a633-4fa0-a7b5-b53deb042326",
+		"name": "chat_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24238215"
+	},
+	"item": [
+		{
+			"name": "Create new applciation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQ2hhdFN5c3RlbSIsImV4cCI6MTY5ODYxMDg4Mn0.Lv17tkZZYSZyCEkYRsNkJEgwnuj-GDhOyTE2Is_Uhi4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"app 222\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/applications",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"applications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all applications",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQ2hhdFN5c3RlbSIsImV4cCI6MTY5ODYxMDg4Mn0.Lv17tkZZYSZyCEkYRsNkJEgwnuj-GDhOyTE2Is_Uhi4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/applications",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"applications"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get application",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQ2hhdFN5c3RlbSIsImV4cCI6MTY5ODYxMDg4Mn0.Lv17tkZZYSZyCEkYRsNkJEgwnuj-GDhOyTE2Is_Uhi4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/applications/YXBwLWFkZWwsdsgYXBw",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"applications",
+						"YXBwLWFkZWwsdsgYXBw"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Application",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQ2hhdFN5c3RlbSIsImV4cCI6MTY5ODYxMDg4Mn0.Lv17tkZZYSZyCEkYRsNkJEgwnuj-GDhOyTE2Is_Uhi4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"edited\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/applications/YXBwLWFwcCAyMjItMg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"applications",
+						"YXBwLWFwcCAyMjItMg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new chat for application",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQ2hhdFN5c3RlbSIsImV4cCI6MTY5ODYxMDg4Mn0.Lv17tkZZYSZyCEkYRsNkJEgwnuj-GDhOyTE2Is_Uhi4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/applications/YXBwLWFkZWwgYXBw/chats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"applications",
+						"YXBwLWFkZWwgYXBw",
+						"chats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get chats for application",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQ2hhdFN5c3RlbSIsImV4cCI6MTY5ODYxMDg4Mn0.Lv17tkZZYSZyCEkYRsNkJEgwnuj-GDhOyTE2Is_Uhi4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/applications/YXBwLWFwcCAyMjItMg/chats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"applications",
+						"YXBwLWFwcCAyMjItMg",
+						"chats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get chat details",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQ2hhdFN5c3RlbSIsImV4cCI6MTY5ODYxMDg4Mn0.Lv17tkZZYSZyCEkYRsNkJEgwnuj-GDhOyTE2Is_Uhi4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/applications/YXBwLWFwcCAyMjItMg/chats/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"applications",
+						"YXBwLWFwcCAyMjItMg",
+						"chats",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new message",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQ2hhdFN5c3RlbSIsImV4cCI6MTY5ODYxMDg4Mn0.Lv17tkZZYSZyCEkYRsNkJEgwnuj-GDhOyTE2Is_Uhi4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"message_content\": \"test message\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/applications/YXBwLWFwcCAxMTEgdGVzdC0x/chats/1/messages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"applications",
+						"YXBwLWFwcCAxMTEgdGVzdC0x",
+						"chats",
+						"1",
+						"messages"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get message for chat",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQ2hhdFN5c3RlbSIsImV4cCI6MTY5ODYxMDg4Mn0.Lv17tkZZYSZyCEkYRsNkJEgwnuj-GDhOyTE2Is_Uhi4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/applications/YXBwLWFwcCAxMTEgdGVzdC0x/chats/1/messages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"applications",
+						"YXBwLWFwcCAxMTEgdGVzdC0x",
+						"chats",
+						"1",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get message details",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQ2hhdFN5c3RlbSIsImV4cCI6MTY5ODYxMDg4Mn0.Lv17tkZZYSZyCEkYRsNkJEgwnuj-GDhOyTE2Is_Uhi4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/applications/YXBwLWFwcCAxMTEgdGVzdC0x/chats/1/messages/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"applications",
+						"YXBwLWFwcCAxMTEgdGVzdC0x",
+						"chats",
+						"1",
+						"messages",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search in messages of chat",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQ2hhdFN5c3RlbSIsImV4cCI6MTY5ODYxMDg4Mn0.Lv17tkZZYSZyCEkYRsNkJEgwnuj-GDhOyTE2Is_Uhi4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/applications/YXBwLWFkZWwgYXBw/chats/1/messages/search?search_content=tes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"applications",
+						"YXBwLWFkZWwgYXBw",
+						"chats",
+						"1",
+						"messages",
+						"search"
+					],
+					"query": [
+						{
+							"key": "search_content",
+							"value": "tes"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

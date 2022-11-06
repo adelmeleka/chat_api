@@ -49,9 +49,11 @@ class Api::V1::MessagesController < Api::ApiController
   def set_message
     if params[:message_number].present? 
       # Get cached copy from redis (deserialized) with an updated messages_count
-      @message = Marshal.load($redis.get("#{@application.application_token}_#{@chat.chat_number}_#{params[:message_number]}")) 
-      #If not found, get it from db & save it in cache
-      if @message.nil?
+      cached_msg = $redis.get("#{@application.application_token}_#{@chat.chat_number}_#{params[:message_number]}")
+      if !cached_msg.nil?
+        @message = Marshal.load(cached_msg)
+      else
+        #If not found, get it from db & save it in cache
         @message = @chat.messages.find_by(message_number: params[:message_number])
         $redis.set("#{@application.application_token}_#{@chat.chat_number}_#{params[:message_number]}", Marshal.dump(@message), ex: 3600) 
       end
