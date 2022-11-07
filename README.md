@@ -204,6 +204,11 @@ To improve create/retrieve performance also, a caching mechanism is done on each
 
 Cached chats/messages in redis expires every hour to ensure not having stale data too much.
 
+## Improvements
+
+- Use `elastic-search` gem to provide performance & security boost when searching between messages for a match.
+- Implement rspec controllers tests for chats and messages -BONUS-.
+
 ## Contributor
 
 Adel Atef Meleka
