@@ -1,6 +1,6 @@
 class Api::ApiController < ActionController::API
   include Api::Response
-  # before_action :authenticate_request
+  before_action :authenticate_request if Rails.env!='test'
 
   private
 

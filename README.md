@@ -29,6 +29,10 @@ The chat system provides an additional websocket endpoint to be able catch the c
 - Make copy `.env.sample` file & rename it to `.env`
 - Compose-up for `docker-compose.yml` file in project directory
 
+## Unit Tests
+
+RSPEC files are available for the system. To run them, just uncomment `bundle exec rspec` command from `docker-entrypoint.sh` file.
+
 ## API Endpoints
 
 To be able to use any endpoint provided by the system, you must include the following authorization token in any request header:
@@ -199,10 +203,6 @@ Handling the values `msgs_count` and `chats_count` for each application & chat a
 To improve create/retrieve performance also, a caching mechanism is done on each chat/message newly created/retrieved from database. So first we check in redis if we have the needed chat/message before hitting the database. And when we hit the database & get it, we save it in redis for possible later use.
 
 Cached chats/messages in redis expires every hour to ensure not having stale data too much.
-
-### Running RSPEC files
-
-RSPEC files are available for the system. To run them, just uncomment `bundle exec rspec` command from `docker-entrypoint.sh` file.
 
 ## Contributor
 
